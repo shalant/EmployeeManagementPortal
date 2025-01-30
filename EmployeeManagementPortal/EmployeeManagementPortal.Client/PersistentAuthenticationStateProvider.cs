@@ -29,6 +29,7 @@ namespace EmployeeManagementPortal.Client
             Claim[] claims = [
                 new Claim(ClaimTypes.NameIdentifier, userInfo.UserId),
                 new Claim(ClaimTypes.Name, userInfo.Email),
+                new Claim(ClaimTypes.Role, userInfo.Role),
                 new Claim(ClaimTypes.Email, userInfo.Email) ];
 
             authenticationStateTask = Task.FromResult(

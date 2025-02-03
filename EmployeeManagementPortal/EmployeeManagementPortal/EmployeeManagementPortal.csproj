@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EmployeeManagementPortal.Models\EmployeeManagementPortal.Models.csproj" />
     <ProjectReference Include="..\EmployeeManagementPortal.Client\EmployeeManagementPortal.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.12" />

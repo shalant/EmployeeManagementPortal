@@ -8,13 +8,31 @@
 
 <MudLayout>
     <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        My Application
+        @* <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" /> *@
+        <a href="/">
+            @* <img src="images/ScoutLogo-Black.jpg" alt="Logo" class="scout-logo" /> *@
+            <img src="images/franciscan-frairs-logo-2023.jpg" alt="Logo" class="friar-logo" />
+        </a>
+        <MudSpacer />
+
+        <h3>Guadalupe Portal</h3>
+
+        <MudSpacer />
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle user-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Admin</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+        </div>
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
+    @* <MudDrawer @bind-Open="@_drawerOpen">
         <NavMenu/>
-    </MudDrawer>
-    <MudMainContent>
+    </MudDrawer> *@
+    <MudMainContent >
         @Body
     </MudMainContent>
 </MudLayout>

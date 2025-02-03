@@ -1,5 +1,21 @@
+/*brown*/
+/*rgb(70,35,33)*/
+
+/*orange
+rgb(221,140,59)*/
+
+/*bodyfont*/
+/*font-roboto*/
+
+/*header #462221*/
+/*eb-garamond, serif*/
+
+/*body-background: f7f7f7*/
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    --mud-palette-appbar-background: #fff;
 }
 
 a, .btn-link {
@@ -22,6 +38,11 @@ a, .btn-link {
 
 h1:focus {
     outline: none;
+}
+
+h1, h2, h3, h4 {
+    color: #462221;
+    font-family: 'eb-garamond';
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -48,4 +69,9 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+.friar-logo {
+    width: 100px;
+    height: 60px;
 }

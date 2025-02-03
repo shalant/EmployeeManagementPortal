@@ -14,4 +14,8 @@
     <PackageReference Include="MudBlazor" Version="8.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\EmployeeManagementPortal.Models\EmployeeManagementPortal.Models.csproj" />
+  </ItemGroup>
+
 </Project>

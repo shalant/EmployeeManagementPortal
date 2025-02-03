@@ -75,3 +75,8 @@ h1, h2, h3, h4 {
     width: 100px;
     height: 60px;
 }
+
+.nav-link {
+    color: #462221;
+    font-family: 'eb-garamond';
+}

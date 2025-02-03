@@ -26,31 +26,61 @@ namespace EmployeeManagementPortal.Client.Services
                     Employees = result.Data;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
+             if(Employees.Count == 0)
+            {
+                Message = "No employees found";
+            }
+
+             return Employees;
         }
 
-        public Task<ServiceResponse<Employee>> GetEmployeeById(int id)
+        public async Task<ServiceResponse<Employee>> GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _http.GetFromJsonAsync<ServiceResponse<Employee>>($"api/employee/{id}");
+            return result;
         }
         
-        public Task<Employee> AddEmployee(Employee employee)
+        public async Task<Employee> AddEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            var newEmployee = new Employee()
+            {
+                Name = employee.Name,
+                JobTitle = employee.JobTitle,
+                Department = employee.Department,
+                Email = employee.Email,
+                Phone = employee.Phone,
+                Salary = employee.Salary,
+                HealthPlan = employee.HealthPlan,
+            };
+
+            var result = await _http.PostAsJsonAsync<Employee>("api/employee", newEmployee);
+            return newEmployee;
         }
 
-        public Task UpdateEmployee(Employee employee)
+        public async Task UpdateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            var request = new Employee()
+            {
+                Name = employee.Name,
+                JobTitle = employee.JobTitle,
+                Department = employee.Department,
+                Email = employee.Email,
+                Phone = employee.Phone,
+                Salary = employee.Salary,
+                HealthPlan = employee.HealthPlan,
+            };
+
+            await _http.PutAsJsonAsync($"api/employee/{request.Id}", request);
         }
 
-        public Task DeleteEmployee(int id)
+        public async Task DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            await _http.DeleteAsync($"api/employee/{id}");
         }
     }
 }

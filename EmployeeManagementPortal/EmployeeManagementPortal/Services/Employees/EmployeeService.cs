@@ -1,33 +1,97 @@
-﻿using EmployeeManagementPortal.Models;
+﻿using EmployeeManagementPortal.Data;
+using EmployeeManagementPortal.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementPortal.Services.Employees
 {
     public class EmployeeService : IEmployeeService
     {
-        public Task<Employee> AddEmployeeAsync(Employee employee)
+        private readonly ApplicationDbContext _context;
+
+        public EmployeeService(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<ServiceResponse<bool>> DeleteEmployeeAsync(int id)
+        public async Task<ServiceResponse<List<Employee>>> GetEmployeesAsync()
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<List<Employee>>
+            {
+                Data = await _context.Employees.ToListAsync()
+            };
+
+            return response;
         }
 
-        public Task<ServiceResponse<Employee>> GetEmployeeByIdAsync(int id)
+        public async Task<ServiceResponse<Employee>> GetEmployeeByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<Employee>();
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+
+            if (employee == null)
+            {
+                response.Success = false;
+                response.Message = "Sorry, but this employee does not exist";
+            }
+            else
+            {
+                response.Data = employee;
+            }
+
+            return response;
         }
 
-        public Task<ServiceResponse<List<Employee>>> GetEmployeesAsync()
+        public async Task<Employee> AddEmployeeAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            await _context.Employees.AddAsync(employee);
+            await _context.SaveChangesAsync();
+            return employee;
         }
 
-        public Task<ActionResult<Employee>> UpdateEmployeeAsync(int id, Employee employee)
+        public async Task<ActionResult<Employee>> UpdateEmployeeAsync(int id, Employee employee)
         {
-            throw new NotImplementedException();
+            var employeeToUpdate = await _context.Employees.Where(e => e.Id == id).FirstOrDefaultAsync();
+
+            if (employee == null)
+            {
+                return employee;
+            }
+
+            employeeToUpdate.Name = employee.Name;
+            employeeToUpdate.JobTitle = employee.JobTitle;
+            employeeToUpdate.Department = employee.Department;
+            employeeToUpdate.Email = employee.Email;
+            employeeToUpdate.Phone = employee.Phone;
+            employeeToUpdate.Salary = employee.Salary;
+            employeeToUpdate.HealthPlan = employee.HealthPlan;
+
+            await _context.SaveChangesAsync();
+
+            return employeeToUpdate;
+        }
+
+        public async Task<ServiceResponse<bool>> DeleteEmployeeAsync(int id)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    Message = "Employee not found"
+                };
+            }
+
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+
+            return new ServiceResponse<bool>
+            {
+                Data = true,
+                Message = "Employee deleted"
+            };
+
         }
     }
 }

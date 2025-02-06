@@ -15,11 +15,13 @@ namespace EmployeeManagementPortal.Client.Services
         public List<Employee> Employees { get; set; } = new List<Employee>();
         public string Message { get; set; } = "Loading employees...";
 
+        public event Action EmployeeChanged;
+
         public async Task<List<Employee>> GetAllEmployees()
         {
             try
             {
-                var result = await _http.GetFromJsonAsync<ServiceResponse<List<Employee>>>("api/employees");
+                var result = await _http.GetFromJsonAsync<ServiceResponse<List<Employee>>>("api/Employee");
 
                 if(result != null)
                 {

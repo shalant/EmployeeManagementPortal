@@ -1,6 +1,12 @@
 ﻿@page "/employees"
 @using EmployeeManagementPortal.Models
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager NavigationManager
+
 @inject IEmployeeService _employeeService
+@implements IDisposable
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+
 
 <h3>EmployeesList</h3>
 <MudDataGrid T="Employee" Items="EmployeeList" SelectOnRowClick="true"
@@ -35,5 +41,10 @@
 
     protected override async Task OnInitializedAsync(){
         EmployeeList = _employeeService.GetAllEmployees().Result;
+    }
+
+    public void Dispose()
+    {
+        _employeeService.EmployeeChanged -= StateHasChanged;
     }
 }

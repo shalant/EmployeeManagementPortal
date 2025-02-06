@@ -84,5 +84,7 @@ namespace EmployeeManagementPortal.Client.Services
         {
             await _http.DeleteAsync($"api/employee/{id}");
         }
+
+
     }
 }

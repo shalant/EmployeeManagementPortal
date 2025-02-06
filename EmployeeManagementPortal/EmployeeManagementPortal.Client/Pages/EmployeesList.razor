@@ -7,9 +7,10 @@
 @implements IDisposable
 @rendermode @(new InteractiveAutoRenderMode(prerender: false))
 
-
-<h3>EmployeesList</h3>
-<MudDataGrid T="Employee" Items="EmployeeList" SelectOnRowClick="true"
+<div class="container">
+    <h3>EmployeesList</h3>
+    
+    <MudDataGrid T="Employee" Items="_employeeService.Employees" SelectOnRowClick="true"
              EditMode="DataGridEditMode.Form" Bordered="true" Elevation="15" Hover="true" Striped="true"
              EditTrigger="DataGridEditTrigger.OnRowClick" Class="IsCompleted">
     <Columns>
@@ -20,7 +21,7 @@
                 <MudCheckBox @bind-Value="@context.Item.IsComplete" @onclick="() => ChangeCompleteness(context.Item)" id="liveToastBtn"></MudCheckBox>
             </CellTemplate>
         </TemplateColumn> *@
-        @* <TemplateColumn Items="EmployeeList">
+    @* <TemplateColumn Items="EmployeeList">
             <CellTemplate>
                 <a href="@($"todoitem/update/{context.Item.Id}")" class="">
                     <i class="fa-solid fa-pen-to-square fa-xl"></i>
@@ -35,12 +36,14 @@
         <MudDataGridPager T="Employee" PageSizeOptions=@(new int[] {5, 10, 20}) />
     </PagerContent>
 </MudDataGrid>
+</div>
 
 @code {
     public List<Employee> EmployeeList = new List<Employee>();
 
     protected override async Task OnInitializedAsync(){
-        EmployeeList = _employeeService.GetAllEmployees().Result;
+        // EmployeeList = _employeeService.GetAllEmployees().Result;
+        _employeeService.Employees = await _employeeService.GetAllEmployees();
     }
 
     public void Dispose()
